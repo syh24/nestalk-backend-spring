@@ -37,3 +37,15 @@ kakaotalk clone service 의 nestalk 입니다! <br/>
     - 채팅 방 최순순으로 정렬
     - 채팅 방 리스트 조회
     - node.js로부터 데이터를 받아 RDBMS에 데이터 등록(채팅방 정보 등록)
+
+<br/>
+
+## 기여 방법 🎁
+1. (<https://github.com/Doong-Ji/nestalk-backend-spring.git>)을 포크합니다.
+2. (`git checkout -b feature/fooBar`) 명령어로 새 브랜치를 만드세요.
+3. (`git commit -am 'Add some fooBar'`) 명령어로 커밋하세요.
+4. (`git push origin feature/fooBar`) 명령어로 브랜치에 푸시하세요. 
+5. Pull request를 보내주세요.
+6. 코드리뷰를 작성합니다. (2명 이상이 코드리뷰에 참여해야 develop브랜치에 Merge가 가능합니다.)
+
+
