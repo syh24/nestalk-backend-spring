@@ -5,7 +5,7 @@ kakaotalk clone service 의 nestalk 입니다! <br/>
 
 <br/>
 
-## 개발환경 😎
+## 😎 개발환경
 - jdk 11
 - Spring boot 2.4.2
 - Spring data JPA 2.4.2
@@ -13,7 +13,7 @@ kakaotalk clone service 의 nestalk 입니다! <br/>
 
 <br/>
 
-## 구현 기능 🎃
+## 🎃 구현 기능
 1. 사용자 관리
     - 로그인/로그아웃
     - 회원 가입 및 탈퇴
@@ -40,7 +40,29 @@ kakaotalk clone service 의 nestalk 입니다! <br/>
 
 <br/>
 
-## 기여 방법 🎁
+## 🌟 Commit Message 규칙
+1. 제목과 본문을 빈 행으로 구분한다
+2. 제목을 50글자 내로 제한한다.
+3. 제목 첫글자는 대문자로 작성한다.
+4. 제목 끝에 마침표 넣지 않는다.
+5. 제목은 명령문으로 사용하며 과거형을 사용하지 않는다/
+6. 본문의 각 행은 72글자 내로 제한한다.
+7. 어떻게 보다는 무엇과 왜를 설명한다.
+
+- **feat** : 새로운 기능에 대한 커밋
+- **docs** : 문서 수정에 대한 커밋
+- fix : 버그 수정에 대한 커밋
+- build : 빌드 관련 파일 수정에 대한 커밋
+- chore : 그 외 자잘한 수정에 대한 커밋
+- ci : CI관련 설정 수정에 대한 커밋
+- style : 코드 스타일 혹은 포맷 등에 관한 커밋
+- refactor :  코드 리팩토링에 대한 커밋
+- **test** : 테스트 코드 수정에 대한 커밋
+- init : 초기 설정
+
+<br/>
+
+## 🎁 기여 방법
 1. (<https://github.com/Doong-Ji/nestalk-backend-spring.git>)을 포크합니다.
 2. (`git checkout -b feature/#이슈번호_기능`) 명령어로 새 브랜치를 만드세요.
 3. (`git commit -am 'feat: 기능'`) 명령어로 커밋하세요.
