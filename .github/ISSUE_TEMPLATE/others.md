@@ -1,11 +1,12 @@
 ---
-name: 🐣 Feature request
-about: 기능 개발 요청
-title: "🐣 [FEATURE] Title"
-labels: 🐣 Feature
+name: 📃 Others
+about: 기타 이슈 작성
+title: "[이슈 종류] Title"
+labels: ''
 assignees: ''
-
 ---
+
+*제목과 라벨을 수정해주세요*
 
 ## 📄 이슈 내용
 - 이슈 내용 요약 설명

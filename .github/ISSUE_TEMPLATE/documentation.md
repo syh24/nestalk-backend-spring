@@ -1,8 +1,8 @@
 ---
-name: 🐣 Feature request
-about: 기능 개발 요청
-title: "🐣 [FEATURE] Title"
-labels: 🐣 Feature
+name: 📝 Documentation
+about: 문서 추가 또는 수정 요청
+title: "📝 [Documentation] Title"
+labels: 📝 Docs
 assignees: ''
 
 ---
