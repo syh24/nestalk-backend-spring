@@ -46,6 +46,6 @@ kakaotalk clone service 의 nestalk 입니다! <br/>
 3. (`git commit -am 'feat: 기능'`) 명령어로 커밋하세요.
 4. (`git push origin feature/#이슈번호_기능`) 명령어로 브랜치에 푸시하세요. 
 5. Pull request를 보내주세요.
-6. 코드리뷰를 작성합니다. (2명 이상이 코드리뷰에 참여해야 develop브랜치에 Merge가 가능합니다.)
+6. 팀원들은 코드리뷰를 작성합니다. (2명 이상이 코드리뷰에 참여해야 develop브랜치에 Merge가 가능합니다.)
 
 
