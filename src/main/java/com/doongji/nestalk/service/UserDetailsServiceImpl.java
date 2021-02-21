@@ -1,7 +1,7 @@
-package com.doongji.nestalk.config.user;
+package com.doongji.nestalk.service;
 
 import com.doongji.nestalk.enums.RoleType;
-import com.doongji.nestalk.vo.UserVo;
+import com.doongji.nestalk.entity.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,8 +23,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        List<UserVo> findUsers = em
-                .createQuery("select v from UserVo v where v.userId = :userId", UserVo.class)
+        List<Users> findUsers = em
+                .createQuery("select v from Users v where v.userId = :userId", Users.class)
                 .setParameter("userId", id)
                 .getResultList();
 
@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
 
-        UserVo userEntity  = findUsers.get(0);
+        Users userEntity  = findUsers.get(0);
         String roleName = userEntity.getRole().equalsIgnoreCase("admin") ? RoleType.ADMIN.name() : RoleType.USER.name();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
