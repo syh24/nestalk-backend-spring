@@ -1,6 +1,7 @@
 package com.doongji.nestalk.config;
 
 import com.doongji.nestalk.config.user.UserDetailsServiceImpl;
+import com.doongji.nestalk.enums.RoleType;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +23,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // 해당 메서드의 리턴되는 오브젝트를 IoC로 등록해줌
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -42,9 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    @Override
    protected void configure(HttpSecurity http) throws Exception {
        http.authorizeRequests()
-               .antMatchers("/", "/home").permitAll()
-               .antMatchers("/admin/**").hasRole("ADMIN")
-               .anyRequest().authenticated()
+               .antMatchers("/", "/login").permitAll()
+               .antMatchers("/admin/**").hasRole(RoleType.ADMIN.name())
+               .anyRequest().hasRole(RoleType.USER.name())
                .and()
            .formLogin()
                .loginPage("/login") //접근제어 페이지 호출시, 권한이 없을 경우 로그인페이지로 이동
