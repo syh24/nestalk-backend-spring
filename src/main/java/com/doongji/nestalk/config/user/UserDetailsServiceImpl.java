@@ -1,5 +1,6 @@
 package com.doongji.nestalk.config.user;
 
+import com.doongji.nestalk.enums.RoleType;
 import com.doongji.nestalk.vo.UserVo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         UserVo userEntity  = findUsers.get(0);
-        String roleName = userEntity.getRole().equalsIgnoreCase("admin") ? "ADMIN" : "USER";
+        String roleName = userEntity.getRole().equalsIgnoreCase("admin") ? RoleType.ADMIN.name() : RoleType.USER.name();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         GrantedAuthority role = new SimpleGrantedAuthority(roleName);
