@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
        http.authorizeRequests()
                .antMatchers("/", "/login").permitAll()
                .antMatchers("/admin/**").hasRole(RoleType.ADMIN.name())
-               .anyRequest().hasRole(RoleType.USER.name())
+               .anyRequest().authenticated()
                .and()
            .formLogin()
                .loginPage("/login") //접근제어 페이지 호출시, 권한이 없을 경우 로그인페이지로 이동
