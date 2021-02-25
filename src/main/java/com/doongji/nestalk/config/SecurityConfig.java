@@ -48,8 +48,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                .permitAll();
    }
 
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
-    }
-
 }
