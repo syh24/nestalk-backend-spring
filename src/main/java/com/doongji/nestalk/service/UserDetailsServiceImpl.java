@@ -23,16 +23,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        List<Users> findUsers = em
-                .createQuery("select v from Users v where v.userId = :userId", Users.class)
-                .setParameter("userId", id)
-                .getResultList();
-
-        if (findUsers.size() == 0) {
+        Users userEntity = em.find(Users.class, id);
+        if (userEntity == null) {
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
         }
 
-        Users userEntity  = findUsers.get(0);
         String roleName = userEntity.getRole().equalsIgnoreCase("admin") ? RoleType.ADMIN.name() : RoleType.USER.name();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -40,6 +35,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         authorities.add(role);
 
         return new User(userEntity.getUserId(), userEntity.getPassword(), authorities);
-
     }
 }
