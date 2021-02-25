@@ -48,7 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                .permitAll();
    }
 
-    @Bean
     public UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
     }
