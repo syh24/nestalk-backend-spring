@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String userId;          //아이디
+    private String userId;          // table pk
 
     @Column(nullable = false)
     private String name;            //이름
@@ -20,7 +20,7 @@ public class Users {
     private String password;        //비밀번호
 
     @Column(nullable = false)
-    private String email;           //이메일
+    private String email;           //이메일(id)
 
     @Column(nullable = false)
     private String phone;           //핸드폰번호

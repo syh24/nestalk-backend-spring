@@ -2,6 +2,8 @@ package com.doongji.nestalk.service;
 
 import com.doongji.nestalk.enums.RoleType;
 import com.doongji.nestalk.entity.Users;
+import com.doongji.nestalk.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -18,15 +20,14 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @PersistenceContext
-    private EntityManager em; // JPA
+    private final UserRepository userRepository;
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Users userEntity = em.find(Users.class, id);
-        if (userEntity == null) {
-            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
-        }
+        Users userEntity = userRepository.findByEmail(id).orElseThrow(()->new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
         String roleName = userEntity.getRole().equalsIgnoreCase("admin") ? RoleType.ADMIN.name() : RoleType.USER.name();
 
