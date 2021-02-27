@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @RequiredArgsConstructor
 @Entity
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userId;          // table pk
