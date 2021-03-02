@@ -29,4 +29,9 @@ spring:
       pool-name: H2_DB
 server:
   port: 8080
-  
+jwt:
+  token:
+    header: x-access-token
+    issuer: nestalk
+    secret: [ SECRET KEY ]
+    expirationTime: 0
