@@ -81,4 +81,9 @@ public class User extends BaseTimeEntity {
             throw new IllegalArgumentException("Bad credential");
     }
 
+    public String createToken(Jwt jwt, String[] roles) {
+        Jwt.Claims claims = Jwt.Claims.of(userId, email, roles);
+        return jwt.newToken(claims);
+    }
+
 }

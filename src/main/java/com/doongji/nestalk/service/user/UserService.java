@@ -23,6 +23,19 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
+    public User join(String email, String name, String password, String phone, LocalDate birthday) {
+        checkNotNull(password, "password must be provided.");
+        checkArgument(
+                password.length() >= 8 && password.length() <= 15,
+                "password length must be between 8 and 15 characters."
+        );
+
+        return update(
+                new User(email, name, passwordEncoder.encode(password), phone, birthday)
+        );
+    }
+
+    @Transactional
     public User login(String email, String password) {
         checkNotNull(password, "password must be provided.");
 
@@ -34,6 +47,10 @@ public class UserService {
 
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    private User update(User user) {
+        return userRepository.save(user);
     }
 
 }
