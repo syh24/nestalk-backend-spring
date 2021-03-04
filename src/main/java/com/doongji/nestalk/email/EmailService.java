@@ -47,7 +47,7 @@ public class EmailService {
                         break;
                 }
             }
-            mailSend(user.getEmail(),"[NESTALK] 비밀번호 찾기를 위한 인증메일입니다.","임시 비밀번호는 :" + temp.toString() + "입니다.");
+            mailSend(user.getEmail(),"[NESTALK] 임시 비밀번호 입니다.","임시 비밀번호는 :" + temp.toString() + "입니다.");
             return temp.toString();
     }
 }
