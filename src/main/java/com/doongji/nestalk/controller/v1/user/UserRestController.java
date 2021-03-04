@@ -62,7 +62,8 @@ public class UserRestController {
 
     @ApiOperation(value = "비밀번호를 찾기 위한 회원 인증(jwt 불필요)")
     @PostMapping(path = "user/password")
-    public ResponseEntity<?> verifyEmail (@RequestBody @ApiParam(value = "example: {\"email\": \"doongji.team@gmail.com\"}", required = true) String email){
+    public ResponseEntity<?> verifyEmail (
+            @RequestBody @ApiParam(value = "example: {\"email\": \"doongji.team@gmail.com\"}", required = true) String email){
         try {
             User user = userService.findByEmail(email).orElseThrow(() -> new NoSuchElementException());
             String temporaryPassword = emailService.sendTemporaryPassword(user);
