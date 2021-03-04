@@ -86,4 +86,8 @@ public class User extends BaseTimeEntity {
         return jwt.newToken(claims);
     }
 
+    public void changePassword (String password){
+        this.password = password;
+    }
+
 }
