@@ -1,5 +1,6 @@
 package com.doongji.nestalk.controller.v1.user;
 
+import com.doongji.nestalk.controller.GeneralExceptionHandler;
 import com.doongji.nestalk.controller.v1.user.dto.JoinRequest;
 import com.doongji.nestalk.controller.v1.user.dto.JoinResult;
 import com.doongji.nestalk.controller.v1.user.dto.UserDto;
@@ -12,11 +13,15 @@ import com.doongji.nestalk.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import javassist.tools.web.BadHttpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jca.endpoint.GenericMessageEndpointFactory;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Api(tags = "사용자 APIs")
 @RequestMapping("api/v1")
@@ -27,6 +32,7 @@ public class UserRestController {
     private final UserService userService;
     private final EmailService emailService;
     private final Jwt jwt;
+    private final GeneralExceptionHandler generalExceptionHandler;
 
     @ApiOperation(value = "사용자 등록 (JWT 불필요)")
     @PostMapping(path = "user/join")
@@ -56,13 +62,12 @@ public class UserRestController {
 
     @ApiOperation(value = "비밀번호를 찾기 위한 회원 인증(jwt 불필요)")
     @PostMapping(path = "user/password")
-    public ResponseEntity<?> verifyEmail (@RequestBody String email){
+    public ResponseEntity<?> verifyEmail (@RequestBody @ApiParam(value = "example: {\"email\": \"doongji.team@gmail.com\"}", required = true) String email){
         try {
-            User user = userService.findByEmail(email)
-                    .orElseThrow(() -> new NotFoundException(User.class, email));
+            User user = userService.findByEmail(email).orElseThrow(() -> new NoSuchElementException());
             String temporaryPassword = emailService.sendTemporaryPassword(user);
             userService.updatePassword(user.getUserId(), temporaryPassword);
-        } catch (NotFoundException e){
+        } catch (Exception e){
             return ResponseEntity.ok("메일을 발송하는데 실패하였습니다.");
         }
         return ResponseEntity.ok("메일을 성공적으로 발송하였습니다.");
