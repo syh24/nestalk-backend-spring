@@ -2,8 +2,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: dhkd689612@gmail.com
-    password: skdltm156!
+    username: [ 자신의 구글 이메일 ]
+    password: [ 자신의 구글 비밀번호 ]
     properties:
       mail:
         smtp:
@@ -44,5 +44,5 @@ jwt:
   token:
     header: x-access-token
     issuer: nestalk
-    secret: 12345678901234567890123456789000
+    secret: [ SECRET KEY ]
     expirationTime: 0
