@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
@@ -15,6 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UserServiceTest {
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -75,4 +79,20 @@ class UserServiceTest {
         log.info("Found by {}: {}", email, user);
     }
 
+    @Test
+    @Order(4)
+    void 비밀번호_변경 () throws Exception{
+        String newPassword = "testPassword";
+        User user = userService.findByEmail(email).orElse(null);
+        userService.updatePassword(user.getUserId(),newPassword);
+        User findUser = userService.login(user.getEmail(),newPassword);
+        assertThat(findUser).isNotNull();
+        assertThat(findUser.getUserId()).isEqualTo(1L);
+        assertThat(findUser.getEmail()).isEqualTo(email);
+        assertThat(findUser.getName()).isEqualTo(name);
+        assertThat(findUser.getPhone()).contains(phone);
+        assertThat(findUser.getBirthday()).isEqualTo(birthday);
+        assertThat(passwordEncoder.matches(newPassword,findUser.getPassword())).isTrue();
+        log.info("Update Password {}: {}", user.getPassword(), findUser.getPassword());
+    }
 }
