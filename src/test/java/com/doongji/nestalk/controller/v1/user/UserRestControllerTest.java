@@ -64,7 +64,7 @@ class UserRestControllerTest {
     }
 
     @Test
-    void 임시비밀번호_발급_실패테스트 () throws Exception{
+    void 임시비밀번호_발급_실패테스트 () throws Exception {
         User user = joinUserFail();
         String url = "http://localhost:" + port + "/api/v1/user/password";
         MvcResult result = mvc.perform(MockMvcRequestBuilders.post(url)
