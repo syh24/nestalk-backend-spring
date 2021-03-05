@@ -1,24 +1,19 @@
 package com.doongji.nestalk.controller.v1.user;
 
-import com.doongji.nestalk.controller.GeneralExceptionHandler;
 import com.doongji.nestalk.controller.v1.user.dto.JoinRequest;
 import com.doongji.nestalk.controller.v1.user.dto.JoinResult;
 import com.doongji.nestalk.controller.v1.user.dto.UserDto;
 import com.doongji.nestalk.email.EmailService;
 import com.doongji.nestalk.entity.user.Role;
 import com.doongji.nestalk.entity.user.User;
-import com.doongji.nestalk.error.NotFoundException;
 import com.doongji.nestalk.security.Jwt;
 import com.doongji.nestalk.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import javassist.tools.web.BadHttpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jca.endpoint.GenericMessageEndpointFactory;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -32,7 +27,6 @@ public class UserRestController {
     private final UserService userService;
     private final EmailService emailService;
     private final Jwt jwt;
-    private final GeneralExceptionHandler generalExceptionHandler;
 
     @ApiOperation(value = "사용자 등록 (JWT 불필요)")
     @PostMapping(path = "user/join")
