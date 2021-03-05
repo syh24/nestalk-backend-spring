@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -55,9 +54,10 @@ public class UserService {
     }
 
     @Transactional
-    public void updatePassword (Long id, String password){
+    public Boolean updatePassword (Long id, String password){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(User.class, id));
         user.changePassword(passwordEncoder.encode(password));
+        return passwordEncoder.matches(password,user.getPassword()) ? true : false;
     }
 }

@@ -61,7 +61,8 @@ public class UserRestController {
         try {
             User user = userService.findByEmail(email).orElseThrow(() -> new NoSuchElementException());
             String temporaryPassword = emailService.sendTemporaryPassword(user);
-            userService.updatePassword(user.getUserId(), temporaryPassword);
+            Boolean ok = userService.updatePassword(user.getUserId(),temporaryPassword);
+            if(!ok) throw new IllegalArgumentException();
         } catch (Exception e){
             return ResponseEntity.ok("메일을 발송하는데 실패하였습니다.");
         }
