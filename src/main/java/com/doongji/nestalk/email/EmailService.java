@@ -27,7 +27,7 @@ public class EmailService {
     public String sendTemporaryPassword(User user) throws NotFoundException{
         UUID uuid = UUID.randomUUID();
         String temp = uuid.toString().substring(0, 8);
-        mailSend(user.getEmail(),"[NESTALK] 임시 비밀번호 입니다.","임시 비밀번호는 :" + temp + "입니다.");
+        mailSend(user.getEmail(),"[NESTALK] 임시 비밀번호 입니다.","임시 비밀번호는 : " + temp + "입니다.");
         return temp;
     }
 }
