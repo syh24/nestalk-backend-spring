@@ -22,10 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -52,35 +55,30 @@ class UserRestControllerTest {
 
     @Test
     void 임시비밀번호_발급_성공테스트 () throws Exception{
-        User user = joinUserSuccess();
+        User user = joinUser();
         String url = "http://localhost:" + port + "/api/v1/user/password";
-        MvcResult result = mvc.perform(MockMvcRequestBuilders.post(url)
+        MvcResult result = mvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(user.getEmail()))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andReturn();
         assertThat(result.getResponse().getContentAsString()).isEqualTo("메일을 성공적으로 발송하였습니다.");
-
     }
 
     @Test
     void 임시비밀번호_발급_실패테스트 () throws Exception {
-        User user = joinUserFail();
+        User user = joinUser();
         String url = "http://localhost:" + port + "/api/v1/user/password";
-        MvcResult result = mvc.perform(MockMvcRequestBuilders.post(url)
+        MvcResult result = mvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("123@gmail.com"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andReturn();
         assertThat(result.getResponse().getContentAsString()).isEqualTo("메일을 발송하는데 실패하였습니다.");
 
     }
 
-    public User joinUserSuccess()  {
-        return userService.join("abc@gmail.com","syh","123456789","010-1234-5678",LocalDate.now());
-
-    }
-    public User joinUserFail()  {
+    public User joinUser(){
         return userService.join("abc@gmail.com","syh","123456789","010-1234-5678",LocalDate.now());
     }
 }
