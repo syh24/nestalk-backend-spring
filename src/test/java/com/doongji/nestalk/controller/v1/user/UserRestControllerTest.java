@@ -1,6 +1,7 @@
 package com.doongji.nestalk.controller.v1.user;
 
 import com.doongji.nestalk.controller.v1.user.dto.FindEmailRequest;
+import com.doongji.nestalk.controller.v1.user.dto.FindEmailResponse;
 import com.doongji.nestalk.entity.user.User;
 import com.doongji.nestalk.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,7 +64,7 @@ class UserRestControllerTest {
                 .content(new ObjectMapper().writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andReturn();
-        assertThat(result.getResponse().getContentAsString()).isEqualTo(user.getEmail());
+        assertThat(result.getResponse().getContentAsString()).contains(user.getEmail());
     }
 
     @Test
@@ -76,12 +77,12 @@ class UserRestControllerTest {
                 .content(new ObjectMapper().writeValueAsString(request)))
                 .andExpect(status().is5xxServerError())
                 .andReturn();
+        assertThat(result.getResponse().getContentAsString()).doesNotContain(user.getEmail());
     }
 
 
     public User joinUser(){
         return userService.join("abc@gmail.com","test","123456789","010-1234-5678", LocalDate.now());
     }
-
 
 }

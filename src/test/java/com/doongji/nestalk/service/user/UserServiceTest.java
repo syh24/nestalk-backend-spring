@@ -77,7 +77,7 @@ class UserServiceTest {
 
     @Test
     void 이메일_찾기 () throws Exception{
-        User user = userService.findId("둥지", "010-0000-0000").orElse(null);
+        User user = userService.findId("둥지", "010-0000-0000");
         assertThat(user).isNotNull();
         assertThat(user.getUserId()).isEqualTo(1L);
         assertThat(user.getEmail()).isEqualTo(email);
