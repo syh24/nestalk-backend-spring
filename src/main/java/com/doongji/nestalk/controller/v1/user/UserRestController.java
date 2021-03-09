@@ -1,8 +1,6 @@
 package com.doongji.nestalk.controller.v1.user;
 
-import com.doongji.nestalk.controller.v1.user.dto.JoinRequest;
-import com.doongji.nestalk.controller.v1.user.dto.JoinResult;
-import com.doongji.nestalk.controller.v1.user.dto.UserDto;
+import com.doongji.nestalk.controller.v1.user.dto.*;
 import com.doongji.nestalk.entity.user.Role;
 import com.doongji.nestalk.entity.user.User;
 import com.doongji.nestalk.security.Jwt;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Api(tags = "사용자 APIs")
 @RequestMapping("api/v1")
@@ -53,6 +52,16 @@ public class UserRestController {
         return ResponseEntity.ok(
                 userService.findByEmail(email).isPresent()
         );
+    }
+
+    @ApiOperation (value = "이메일 찾기 (JWT 불필요)")
+    @PostMapping (path = "user/email")
+    public ResponseEntity<?> checkEmail (@RequestBody FindEmailRequest request){
+        User user = userService.findId(request.getName(), request.getPhone())
+                .orElseThrow(() -> new NoSuchElementException());
+        FindEmailResponse response = new FindEmailResponse();
+        response.setEmail(user.getEmail());
+        return ResponseEntity.ok(response);
     }
 
 }
