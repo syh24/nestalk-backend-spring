@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -53,7 +54,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> findId(String name, String phone) {
-        return userRepository.findByNameAndPhone(name, phone);
+    public User findId(String name, String phone) {
+        return userRepository.findByNameAndPhone(name, phone)
+                .orElseThrow(() -> new NoSuchElementException("유저가 존재하지 않습니다."));
     }
 }
