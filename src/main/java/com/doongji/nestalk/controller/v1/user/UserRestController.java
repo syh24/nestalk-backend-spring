@@ -59,9 +59,6 @@ public class UserRestController {
     public ResponseEntity<?> checkEmail (@RequestBody FindEmailRequest request){
         User user = userService.findId(request.getName(), request.getPhone())
                 .orElseThrow(() -> new NoSuchElementException());
-        FindEmailResponse response = new FindEmailResponse();
-        response.setEmail(user.getEmail());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(new FindEmailResponse(user.getEmail()));
     }
-
 }
