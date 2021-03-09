@@ -11,4 +11,9 @@ public class FindEmailRequest {
 
     @ApiModelProperty(value = "사용자 핸드폰 번호", required = true)
     private String phone;
+
+    public FindEmailRequest (String name, String phone){
+        this.name = name;
+        this.phone = phone;
+    }
 }
