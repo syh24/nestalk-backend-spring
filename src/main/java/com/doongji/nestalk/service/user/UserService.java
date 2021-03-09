@@ -53,4 +53,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public Optional<User> findId(String name, String phone) {
+        return userRepository.findByNameAndPhone(name, phone);
+    }
 }
