@@ -2,8 +2,10 @@ package com.doongji.nestalk.controller.v1.user.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class FindEmailRequest {
 
     @ApiModelProperty (value = "사용자 이름", required = true)
