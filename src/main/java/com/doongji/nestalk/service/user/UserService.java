@@ -4,6 +4,7 @@ import com.doongji.nestalk.entity.user.User;
 import com.doongji.nestalk.error.NotFoundException;
 import com.doongji.nestalk.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,8 +55,9 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Transactional(readOnly = true)
     public User findId(String name, String phone) {
         return userRepository.findByNameAndPhone(name, phone)
-                .orElseThrow(() -> new NoSuchElementException("유저가 존재하지 않습니다."));
+                .orElseThrow(() -> new NotFoundException(User.class, name, phone));
     }
 }
