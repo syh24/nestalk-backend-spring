@@ -55,9 +55,9 @@ public class UserRestController {
 
     @ApiOperation (value = "이메일 찾기 (JWT 불필요)")
     @PostMapping (path = "user/email")
-    public ResponseEntity<?> checkEmail (@RequestBody FindEmailRequest request){
+    public ResponseEntity<FindEmailResponse> checkEmail (@RequestBody FindEmailRequest request){
 
-        User user = userService.findId(request.getName(), request.getPhone());
+        User user = userService.findEmailByNameAndPhone(request.getName(), request.getPhone());
         return ResponseEntity.ok(new FindEmailResponse(user.getEmail()));
     }
 }

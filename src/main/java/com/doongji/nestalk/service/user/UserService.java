@@ -54,7 +54,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User findId(String name, String phone) {
+    public User findEmailByNameAndPhone(String name, String phone) {
         return userRepository.findByNameAndPhone(name, phone)
                 .orElseThrow(() -> new NotFoundException(User.class, name, phone));
     }
