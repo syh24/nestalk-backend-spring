@@ -1,11 +1,9 @@
 package com.doongji.nestalk.controller.v1.user;
 
 import com.doongji.nestalk.controller.v1.user.dto.FindEmailRequest;
-import com.doongji.nestalk.controller.v1.user.dto.FindEmailResponse;
 import com.doongji.nestalk.entity.user.User;
-import com.doongji.nestalk.service.user.UserService;
+import com.doongji.nestalk.repository.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +22,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -33,7 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest (webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 class UserRestControllerTest {
-
 
     @LocalServerPort
     private int port;
@@ -44,7 +40,7 @@ class UserRestControllerTest {
     private MockMvc mvc;
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
     @BeforeEach
     public void before() {
@@ -75,14 +71,13 @@ class UserRestControllerTest {
         MvcResult result = mvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(request)))
-                .andExpect(status().is5xxServerError())
+                .andExpect(status().is4xxClientError())
                 .andReturn();
         assertThat(result.getResponse().getContentAsString()).doesNotContain(user.getEmail());
     }
 
-
     public User joinUser(){
-        return userService.join("abc@gmail.com","test","123456789","010-1234-5678", LocalDate.now());
+        return userRepository.save(new User("abc@gmail.com","test","123456789","010-1234-5678", LocalDate.now()));
     }
 
 }
