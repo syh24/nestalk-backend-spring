@@ -77,13 +77,9 @@ class UserServiceTest {
 
     @Test
     void 이메일_찾기 () throws Exception{
-        User user = userService.findId("둥지", "010-0000-0000");
+        User user = userService.findEmailByNameAndPhone("둥지", "010-0000-0000");
         assertThat(user).isNotNull();
-        assertThat(user.getUserId()).isEqualTo(1L);
         assertThat(user.getEmail()).isEqualTo(email);
-        assertThat(user.getName()).isEqualTo(name);
-        assertThat(user.getPhone()).contains(phone);
-        assertThat(user.getBirthday()).isEqualTo(birthday);
         log.info("Found by {} {}: {}",name, phone, user);
     }
 
