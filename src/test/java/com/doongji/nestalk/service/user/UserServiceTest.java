@@ -76,11 +76,10 @@ class UserServiceTest {
     }
 
     @Test
-    void 이메일_찾기 () throws Exception{
-        User user = userService.findUserByNameAndPhone("둥지", "010-0000-0000");
-        assertThat(user).isNotNull();
-        assertThat(user.getEmail()).isEqualTo(email);
-        log.info("Found by {} {}: {}",name, phone, user);
+    void 이메일_찾기() throws Exception {
+        String email = userService.findUserByNameAndPhone("둥지", "010-0000-0000");
+        assertThat(email).isEqualTo(this.email);
+        log.info("Found by {} {}: {}", name, phone, email);
     }
 
 }

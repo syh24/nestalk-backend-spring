@@ -54,8 +54,9 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User findUserByNameAndPhone(String name, String phone) {
-        return userRepository.findByNameAndPhone(name, phone)
+    public String findUserByNameAndPhone(String name, String phone) {
+        User user = userRepository.findByNameAndPhone(name, phone)
                 .orElseThrow(() -> new NotFoundException(User.class, name, phone));
+        return user.getEmail();
     }
 }
